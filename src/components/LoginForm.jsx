@@ -1,6 +1,14 @@
+import React, { useRef } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 
-export default function Login() {
+export default function LoginForm() {
+  const formRef = useRef()
+  const handleSubmitForm = (e) => {
+    e.preventDefault()
+    const formFields = new FormData(formRef.current)
+    const emailField = formFields.get('email')
+    const pwdField = formFields.get('password')
+  }
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -9,7 +17,7 @@ export default function Login() {
             <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" ref={formRef} onSubmit={handleSubmitForm}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>

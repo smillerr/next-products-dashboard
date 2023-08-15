@@ -1,10 +1,8 @@
-import { Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { navigationLandingPage } from '@utils/constants';
-import Link from 'next/link';
-
-
+import { Fragment } from 'react'
+import { Popover, Transition } from '@headlessui/react'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { navigationLandingPage } from '@utils/constants'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -44,9 +42,9 @@ export default function Home() {
                       {item.name}
                     </Link>
                   ))}
-                  <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
                     Log in
-                  </a>
+                  </Link>
                 </div>
               </nav>
             </div>
@@ -126,5 +124,5 @@ export default function Home() {
         />
       </div>
     </div>
-  );
+  )
 }

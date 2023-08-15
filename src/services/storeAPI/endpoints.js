@@ -1,7 +1,7 @@
-const BASE_API_URL = process.env.STORE_PUBLIC_API_URL
-const API_VERSION = process.env.STORE_PUBLIC_API_VERSION
+const BASE_API_URL = process.env.NEXT_PUBLIC_STORE_API_URL
+const API_VERSION = process.env.NEXT_PUBLIC_STORE_API_VERSION
 
-const endpoints = {
+export const endpoints = {
     products: {
         getProducts: `${BASE_API_URL}${API_VERSION}/products`,
         getProduct: (id)=>`${BASE_API_URL}${API_VERSION}/products/${id}`,

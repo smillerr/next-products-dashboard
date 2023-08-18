@@ -3,7 +3,7 @@ const API_VERSION = process.env.NEXT_PUBLIC_STORE_API_VERSION
 
 export const endpoints = {
     products: {
-        getProducts: `${BASE_API_URL}${API_VERSION}/products`,
+        getProducts: (offset, limit) => `${BASE_API_URL}${API_VERSION}/products?offset=${offset}&limit=${limit}`,
         getProduct: (id)=>`${BASE_API_URL}${API_VERSION}/products/${id}`,
         createProduct: `${BASE_API_URL}${API_VERSION}/products`,
         updateProduct: (id)=>`${BASE_API_URL}${API_VERSION}/products/${id}`,

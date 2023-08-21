@@ -11,7 +11,7 @@ const Pagination = ({ offset, setOffset, limit, setLimit, currentPage, setCurren
   const IS_LAST_PAGE = currentPage === pageNumbers.at(-1)
 
   const handlePagination = (pageNumber) => {
-    setOffset(pageNumber * limit)
+    setOffset((pageNumber - 1) * limit)
     setCurrentPage(pageNumber)
   }
   useEffect(() => {
@@ -46,7 +46,7 @@ const Pagination = ({ offset, setOffset, limit, setLimit, currentPage, setCurren
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">1</span> to <span className="font-medium">10</span> of <span className="font-medium">{totalProducts}</span> results
+            Showing <span className="font-medium">{offset}</span> to <span className="font-medium">{limit * currentPage}</span> of <span className="font-medium">{totalProducts}</span> results
           </p>
         </div>
         <div>

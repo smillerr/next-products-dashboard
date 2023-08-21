@@ -67,7 +67,7 @@ export default function Header() {
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <img className="w-8 h-8 rounded-full" src={userData.imageUrl} alt="User profile picture" />
+                          <img className="w-8 h-8 rounded-full" src={userData.imageUrl || `https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg`} alt="User profile picture" />
                         </Menu.Button>
                       </div>
                       <Transition

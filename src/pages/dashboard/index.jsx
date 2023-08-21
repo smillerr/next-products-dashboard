@@ -1,4 +1,7 @@
+import CategoryChart from '@components/Categories/CategoryChart'
+import ListHeader from '@components/Products/ListHeader'
 import Pagination from '@components/Products/Pagination'
+import Modal from '@components/common/Modal'
 
 import useFetchProducts from '@hooks/Products/useFetchProducts'
 import { useState } from 'react'
@@ -8,8 +11,31 @@ export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1)
   const TOTAL_PRODUCTS = 50
   const products = useFetchProducts(offset, limit)
+  const countByCategory = products
+    .map((product) => product.category)
+    .map((category) => category.name)
+    .reduce((obj, value) => {
+      if (!obj[value]) {
+        obj[value] = 1
+      } else {
+        obj[value] = obj[value] + 1
+      }
+      return obj
+    }, {})
+  const categoriesData = {
+    datasets: [
+      {
+        label: '',
+        data: countByCategory,
+        borderWidth: 2,
+        backgroundColor: ['#056483', '#0093c6', '#249fb3', '#5ab0f5', '#a1ade3', '#93e6e8'],
+      },
+    ],
+  }
   return (
     <>
+      <CategoryChart className="mb-8 mt-8" categoriesData={categoriesData} />
+      <ListHeader />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -57,7 +83,9 @@ export default function Dashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{`$ ${product.price}`}</span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="px-2 inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">{product?.id}</span>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
                         <button type="button" className="text-indigo-600 hover:text-indigo-900">
                           Edit

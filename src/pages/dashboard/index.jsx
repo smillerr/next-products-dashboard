@@ -1,6 +1,7 @@
 import CategoryChart from '@components/Categories/CategoryChart'
 import ListHeader from '@components/Products/ListHeader'
 import Pagination from '@components/Products/Pagination'
+import SkeletonProduct from '@components/Products/SkeletonProduct'
 import Modal from '@components/common/Modal'
 
 import useFetchProducts from '@hooks/Products/useFetchProducts'
@@ -9,8 +10,9 @@ export default function Dashboard() {
   const [limit, setLimit] = useState(10)
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const [openModal, setOpenModal] = useState(false)
   const TOTAL_PRODUCTS = 50
-  const products = useFetchProducts(offset, limit)
+  const { products, loading } = useFetchProducts(offset, limit)
   const countByCategory = products
     .map((product) => product.category)
     .map((category) => category.name)
@@ -32,10 +34,11 @@ export default function Dashboard() {
       },
     ],
   }
+  console.log(loading)
   return (
     <>
       <CategoryChart className="mb-8 mt-8" categoriesData={categoriesData} />
-      <ListHeader />
+      <ListHeader setOpenModal={setOpenModal} />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -105,6 +108,9 @@ export default function Dashboard() {
         </div>
       </div>
       <Pagination offset={offset} setOffset={setOffset} limit={limit} setLimit={setLimit} currentPage={currentPage} setCurrentPage={setCurrentPage} totalProducts={TOTAL_PRODUCTS} />
+      <Modal open={openModal} setOpen={setOpenModal}>
+        <h2> Add a new product </h2>
+      </Modal>
     </>
   )
 }

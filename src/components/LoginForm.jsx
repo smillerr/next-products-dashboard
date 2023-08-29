@@ -11,7 +11,7 @@ export default function LoginForm() {
   const router = useRouter()
   const [submitError, setSubmitError] = useState(null)
   const [submitLoading, setSubmitLoading] = useState(false)
-
+  console.log(submitError)
   const handleSubmitForm = (e) => {
     e.preventDefault()
     const formFields = new FormData(formRef.current)
@@ -27,6 +27,7 @@ export default function LoginForm() {
         if (err?.response?.status === 401) {
           setSubmitError('It looks like either your email or password are incorrect. Please try again')
         } else if (err?.request) {
+          console.log('There was this error', err)
           setSubmitError(`Error ${err?.response?.data?.statusCode}, ${err?.response?.data?.message}`)
         } else {
           setSubmitError('Something went wrong. Please try again later')

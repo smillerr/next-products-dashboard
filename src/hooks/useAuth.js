@@ -18,8 +18,13 @@ function useProvideAuth(){
         try {
           const savedOnCookie = Cookie.get(accessTokenInCookie)
           if (savedOnCookie) {
-            axios.defaults.headers.Authorization = `Bearer ${savedOnCookie}`;
-            const { data: user } = await axios.get(endpoints.auth.profile);
+               const options = {
+            headers: {
+              "Authorization": `Bearer ${savedOnCookie}`
+            }
+        }
+    
+            const { data: user } = await axios.get(endpoints.auth.profile, options);
             setUser(user);
           }
         } catch (_) {
@@ -32,6 +37,7 @@ function useProvideAuth(){
             headers: {
                 accept: '*/*',
                 'Content-type': 'application/json',
+                
             }
         }
         

@@ -21,5 +21,12 @@ export const endpoints = {
         updateUser: (id)=>`${BASE_API_URL}${API_VERSION}/users/${id}`,
         deleteUser: (id)=>`${BASE_API_URL}${API_VERSION}/users/${id}`,
         checkUser: `${BASE_API_URL}${API_VERSION}/users/is-available`,
+    },
+    categories: {
+        getCategories: `${BASE_API_URL}${API_VERSION}/categories`,
+        getCategory: (id) => `${BASE_API_URL}${API_VERSION}/categories/${id}`,
+        createCategory: `${BASE_API_URL}${API_VERSION}/categories`,
+        updateCategory: (id) => `${BASE_API_URL}${API_VERSION}/categories/${id}`,
+        deleteCategory: (id) => `${BASE_API_URL}${API_VERSION}/categories/${id}`,
     }
 }

@@ -1,5 +1,6 @@
 import CategoryChart from '@components/Categories/CategoryChart'
 import ListHeader from '@components/Products/ListHeader'
+import NewProduct from '@components/Products/NewProduct'
 import Pagination from '@components/Products/Pagination'
 import SkeletonProduct from '@components/Products/SkeletonProduct'
 import Modal from '@components/common/Modal'
@@ -12,7 +13,7 @@ export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1)
   const [openModal, setOpenModal] = useState(false)
   const TOTAL_PRODUCTS = 50
-  const { products, loading } = useFetchProducts(offset, limit)
+  const { products } = useFetchProducts(offset, limit)
   const countByCategory = products
     .map((product) => product.category)
     .map((category) => category.name)
@@ -34,7 +35,6 @@ export default function Dashboard() {
       },
     ],
   }
-  console.log(loading)
   return (
     <>
       <CategoryChart className="mb-8 mt-8" categoriesData={categoriesData} />
@@ -108,8 +108,8 @@ export default function Dashboard() {
         </div>
       </div>
       <Pagination offset={offset} setOffset={setOffset} limit={limit} setLimit={setLimit} currentPage={currentPage} setCurrentPage={setCurrentPage} totalProducts={TOTAL_PRODUCTS} />
-      <Modal open={openModal} setOpen={setOpenModal}>
-        <h2> Add a new product </h2>
+      <Modal open={openModal} setOpen={setOpenModal} modalTitle={'Add a new product'}>
+        <NewProduct />
       </Modal>
     </>
   )

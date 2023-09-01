@@ -28,5 +28,9 @@ export const endpoints = {
         createCategory: `${BASE_API_URL}${API_VERSION}/categories`,
         updateCategory: (id) => `${BASE_API_URL}${API_VERSION}/categories/${id}`,
         deleteCategory: (id) => `${BASE_API_URL}${API_VERSION}/categories/${id}`,
+    },
+    files: {
+        uploadFile: `${BASE_API_URL}${API_VERSION}/files/upload`,
+        getFile: (fileName) => `${BASE_API_URL}${API_VERSION}/files/${fileName}`
     }
 }

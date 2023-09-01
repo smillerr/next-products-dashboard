@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [openModal, setOpenModal] = useState(false)
-  const TOTAL_PRODUCTS = 50
+  const [totalProducts, setTotalProducts] = useState(50)
   const { products } = useFetchProducts(offset, limit)
   const countByCategory = products
     .map((product) => product.category)
@@ -107,9 +107,9 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <Pagination offset={offset} setOffset={setOffset} limit={limit} setLimit={setLimit} currentPage={currentPage} setCurrentPage={setCurrentPage} totalProducts={TOTAL_PRODUCTS} />
+      <Pagination offset={offset} setOffset={setOffset} limit={limit} setLimit={setLimit} currentPage={currentPage} setCurrentPage={setCurrentPage} totalProducts={totalProducts} />
       <Modal open={openModal} setOpen={setOpenModal} modalTitle={'Add a new product'}>
-        <NewProduct />
+        <NewProduct setTotalProducts={setTotalProducts} setOpenModal={setOpenModal} />
       </Modal>
     </>
   )

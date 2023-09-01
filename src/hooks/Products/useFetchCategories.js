@@ -4,20 +4,23 @@ import { useEffect, useState } from "react";
 
 const useFetchCategories = () => {
     const {categories: {getCategories}} = endpoints
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState()
 
     const fetchCategories = async () =>{
-        const response = await axios.get(getCategories)
-        setCategories(response.data)
-    }
-    useEffect(()=>{
         try {
-            fetchCategories()
-        } catch (_) {
+            const response = await axios.get(getCategories)
+            setCategories(response.data)
+        } catch (error) {
             setCategories([])
         }
         
+    }
+    useEffect(()=>{
+        fetchCategories()
+        
     },[])
+
+    
     return categories
 }
 

@@ -8,6 +8,7 @@ export const endpoints = {
         createProduct: `${BASE_API_URL}${API_VERSION}/products`,
         updateProduct: (id)=>`${BASE_API_URL}${API_VERSION}/products/${id}`,
         deleteProduct: (id)=>`${BASE_API_URL}${API_VERSION}/products/${id}`,
+        getAllProducts: `${BASE_API_URL}${API_VERSION}/products`
     },
     auth: {
         login:  `${BASE_API_URL}${API_VERSION}/auth/login`,

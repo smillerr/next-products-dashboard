@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const NewProduct = ({ setTotalProducts, setOpenModal }) => {
+const NewProduct = ({ setTotalProducts, setOpenModal, setProducts }) => {
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const NewProduct = ({ setTotalProducts, setOpenModal }) => {
   const [submitError, setSubmitError] = useState(null)
   const [submitSuccess, setSubmitSuccess] = useState(null)
 
-  const handleCreateProduct = (data) => {
+  const handleCreateProduct = async (data) => {
     setSubmitLoading(true)
     const fileToUpload = data.images[0]
     const {
@@ -46,33 +46,31 @@ const NewProduct = ({ setTotalProducts, setOpenModal }) => {
       setSubmitLoading(false)
       setSubmitError('Error! The file extension that you submitted is not supported')
     } else {
-      ;(async () => {
-        try {
-          const fileResponse = await axios.post(uploadFile, { file: fileToUpload }, fileOptions)
-          fileName = fileResponse?.data?.location
-          const newProduct = {
-            title: data?.title,
-            price: data?.price,
-            description: data?.description,
-            categoryId: parseInt(data?.category),
-            images: [fileName],
-          }
-          try {
-            const productResponse = await axios.post(createProduct, newProduct, productOptions)
-            setSubmitSuccess('Success! The product was created successfully')
-            setTotalProducts((products) => products + 1)
-            setTimeout(() => {
-              setOpenModal(false)
-            }, 3000)
-          } catch (error) {
-            setSubmitError(`Error! We are having problems rigth now, please try again later ${error}`)
-          }
-        } catch (error) {
-          setSubmitError(`Error! We are having problems rigth now, please try again later, ${error}`)
+      try {
+        const fileResponse = await axios.post(uploadFile, { file: fileToUpload }, fileOptions)
+        fileName = fileResponse?.data?.location
+        const newProduct = {
+          title: data?.title,
+          price: data?.price,
+          description: data?.description,
+          categoryId: parseInt(data?.category),
+          images: [fileName],
         }
-        setSubmitLoading(false)
-        setSubmitError(null)
-      })()
+        try {
+          const productResponse = await axios.post(createProduct, newProduct, productOptions)
+          setSubmitSuccess('Success! The product was created successfully')
+          setTotalProducts((products) => products + 1)
+          setTimeout(() => {
+            setOpenModal(false)
+          }, 3000)
+        } catch (error) {
+          setSubmitError(`Error! We are having problems rigth now, please try again later ${error?.message}`)
+        }
+      } catch (error) {
+        setSubmitError(`Error! We are having problems rigth now, please try again later, ${error?.message}`)
+      }
+      setSubmitLoading(false)
+      setSubmitError('')
     }
   }
   const validateField = (field, validation) => {

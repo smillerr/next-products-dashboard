@@ -1,4 +1,5 @@
 import CategoryChart from '@components/Categories/CategoryChart'
+import DeleteProduct from '@components/Products/DeleteProduct'
 import ListHeader from '@components/Products/ListHeader'
 import NewProduct from '@components/Products/NewProduct'
 import Pagination from '@components/Products/Pagination'
@@ -11,9 +12,10 @@ export default function Dashboard() {
   const [limit, setLimit] = useState(10)
   const [offset, setOffset] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [openModal, setOpenModal] = useState(false)
+  const [productModal, setProductModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [productToDelete, setProductToDelete] = useState(undefined)
   const { products, allProducts, setAllProducts } = useFetchProducts(offset, limit)
-  const [totalProducts, setTotalProducts] = useState(undefined)
   const countByCategory = products
     .map((product) => product.category)
     .map((category) => category.name)
@@ -41,7 +43,7 @@ export default function Dashboard() {
   return (
     <>
       <CategoryChart className="mb-8 mt-8" categoriesData={categoriesData} />
-      <ListHeader setOpenModal={setOpenModal} />
+      <ListHeader setOpenModal={setProductModal} />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -98,7 +100,14 @@ export default function Dashboard() {
                         </button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                        <button type="button" className="text-red-600 hover:text-red-900">
+                        <button
+                          type="button"
+                          className="text-red-600 hover:text-red-900"
+                          onClick={() => {
+                            setDeleteModal(true)
+                            setProductToDelete(product.id)
+                          }}
+                        >
                           Delete
                         </button>
                       </td>
@@ -111,8 +120,11 @@ export default function Dashboard() {
         </div>
       </div>
       <Pagination offset={offset} setOffset={setOffset} limit={limit} setLimit={setLimit} currentPage={currentPage} setCurrentPage={setCurrentPage} totalProducts={allProducts} />
-      <Modal open={openModal} setOpen={setOpenModal} modalTitle={'Add a new product'}>
-        <NewProduct setTotalProducts={setAllProducts} setOpenModal={setOpenModal} />
+      <Modal open={productModal} setOpen={setProductModal} modalTitle={'Add a new product'}>
+        <NewProduct setTotalProducts={setAllProducts} setOpenModal={setProductModal} />
+      </Modal>
+      <Modal open={deleteModal} setOpen={setDeleteModal} modalTitle={'Warning!'}>
+        <DeleteProduct id={productToDelete} closeModal={setDeleteModal} setAllProducts={setAllProducts} />
       </Modal>
     </>
   )

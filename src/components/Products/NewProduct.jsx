@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const NewProduct = ({ setTotalProducts, setOpenModal, setProducts }) => {
+const NewProduct = ({ setTotalProducts, setOpenModal }) => {
   const {
     register,
     handleSubmit,

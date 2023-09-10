@@ -24,7 +24,7 @@ export default function Modal({ open, setOpen, modalTitle, children }) {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex justify-between">
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-between">
                 <Dialog.Title as="h2" className="text-lg font-medium leading-6 text-gray-900">
                   {modalTitle}
                 </Dialog.Title>
